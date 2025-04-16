@@ -22,7 +22,7 @@ import java.net.ServerSocket
 /**
  * @Author: CZY
  * @Date: 2022/9/26 14:18
- * @Desc:
+ * @Desc: Handles receiving files via a socket connection
  */
 class FileReceiverViewModel(context: Application) : AndroidViewModel(context) {
 
@@ -38,6 +38,9 @@ class FileReceiverViewModel(context: Application) : AndroidViewModel(context) {
 
     private var fileReceiverJob: Job? = null
 
+    /**
+     * Starts the listener for incoming file transfers
+     */
     fun startListener() {
         val job = fileReceiverJob
         if (job != null && job.isActive) {
@@ -52,14 +55,14 @@ class FileReceiverViewModel(context: Application) : AndroidViewModel(context) {
             try {
                 _fileTransferViewState.emit(value = FileTransferViewState.Connecting)
                 log {
-                    "开启 Socket"
+                    "Opening Socket"
                 }
                 serverSocket = ServerSocket()
                 serverSocket.bind(InetSocketAddress(Constants.PORT))
                 serverSocket.reuseAddress = true
                 serverSocket.soTimeout = 15000
                 log {
-                    "socket accept，十五秒内如果未成功则断开链接"
+                    "Socket accepted, disconnecting if not connected in 15 seconds"
                 }
                 val client = serverSocket.accept()
                 _fileTransferViewState.emit(value = FileTransferViewState.Receiving)
@@ -69,11 +72,11 @@ class FileReceiverViewModel(context: Application) : AndroidViewModel(context) {
                 val file = File(getCacheDir(context = getApplication()), fileTransfer.fileName)
                 log {
                     buildString {
-                        append("连接成功，待接收的文件: $fileTransfer")
+                        append("Connection successful, file to be received: $fileTransfer")
                         append("\n")
-                        append("文件将保存到: $file")
+                        append("The file will be saved to: $file")
                         append("\n")
-                        append("开始传输文件")
+                        append("Starting file transfer")
                     }
                 }
                 fileOutputStream = FileOutputStream(file)
@@ -86,16 +89,16 @@ class FileReceiverViewModel(context: Application) : AndroidViewModel(context) {
                         break
                     }
                     log {
-                        "正在传输文件，length : $length"
+                        "Transferring file, length: $length"
                     }
                 }
                 _fileTransferViewState.emit(value = FileTransferViewState.Success(file = file))
                 log {
-                    "文件接收成功"
+                    "File received successfully"
                 }
             } catch (throwable: Throwable) {
                 log {
-                    "抛出异常: " + throwable.message
+                    "Exception thrown: " + throwable.message
                 }
                 _fileTransferViewState.emit(value = FileTransferViewState.Failed(throwable = throwable))
             } finally {
@@ -107,14 +110,19 @@ class FileReceiverViewModel(context: Application) : AndroidViewModel(context) {
         }
     }
 
+    /**
+     * Returns the directory where the files will be saved
+     */
     private fun getCacheDir(context: Context): File {
         val cacheDir = File(context.cacheDir, "FileTransfer")
         cacheDir.mkdirs()
         return cacheDir
     }
 
+    /**
+     * Logs messages to the flow
+     */
     private suspend fun log(log: () -> Any) {
         _log.emit(value = log().toString())
     }
-
 }

@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="搜索设备"
+            android:text="Search Devices"
             tools:enabled="true"
             tools:ignore="HardcodedText" />
 
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="断开连接"
+            android:text="Disconnect"
             tools:enabled="true"
             tools:ignore="HardcodedText" />
 
@@ -47,14 +47,14 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:enabled="false"
-        android:text="选择文件"
+        android:text="Choose File"
         tools:enabled="true"
         tools:ignore="HardcodedText" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="本设备的信息"
+        android:text="Device Info"
         android:textSize="18sp"
         tools:ignore="HardcodedText" />
 
@@ -63,20 +63,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15sp"
-        tools:text="小米14Pro" />
+        tools:text="Xiaomi 14 Pro" />
 
     <TextView
         android:id="@+id/tvConnectionStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15sp"
-        tools:text="连接状态" />
+        tools:text="Connection Status" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="8dp"
-        android:text="设备列表"
+        android:text="Device List"
         android:textSize="18sp"
         tools:ignore="HardcodedText" />
 

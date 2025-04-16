@@ -62,20 +62,20 @@ class FileSenderViewModel(context: Application) : AndroidViewModel(context) {
                     val fileTransfer = FileTransfer(fileName = cacheFile.name)
                     _fileTransferViewState.emit(value = FileTransferViewState.Connecting)
                     log {
-                        "待发送的文件: $fileTransfer"
+                        "File to send: $fileTransfer"
                     }
                     log {
-                        "开启 Socket"
+                        "Opening Socket"
                     }
                     socket = Socket()
                     socket.bind(null)
                     log {
-                        "socket connect，如果十五秒内未连接成功则放弃"
+                        "socket connect, if not connected within fifteen seconds, it will be abandoned"
                     }
                     socket.connect(InetSocketAddress(ipAddress, Constants.PORT), 15000)
                     _fileTransferViewState.emit(value = FileTransferViewState.Receiving)
                     log {
-                        "连接成功，开始传输文件"
+                        "Connection successful, starting file transfer"
                     }
                     outputStream = socket.getOutputStream()
                     objectOutputStream = ObjectOutputStream(outputStream)
@@ -91,17 +91,17 @@ class FileSenderViewModel(context: Application) : AndroidViewModel(context) {
                             break
                         }
                         log {
-                            "正在传输文件，length : $length"
+                            "Transferring file, length: $length"
                         }
                     }
                     log {
-                        "文件发送成功"
+                        "File transfer successful"
                     }
                     _fileTransferViewState.emit(value = FileTransferViewState.Success(file = cacheFile))
                 } catch (throwable: Throwable) {
                     throwable.printStackTrace()
                     log {
-                        "抛出异常: " + throwable.message
+                        "Exception thrown: " + throwable.message
                     }
                     _fileTransferViewState.emit(value = FileTransferViewState.Failed(throwable = throwable))
                 } finally {

@@ -107,7 +107,7 @@ class FileReceiverActivity : BaseActivity() {
     }
 
     private fun initView() {
-        supportActionBar?.title = "文件接收端"
+        supportActionBar?.title = "File Receiver"
         btnCreateGroup.setOnClickListener {
             createGroup()
         }

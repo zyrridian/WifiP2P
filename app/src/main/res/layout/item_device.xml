@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:textSize="16sp"
-            tools:text="红米 K70" />
+            tools:text="Redmi K70" />
 
         <TextView
             android:id="@+id/tvDeviceAddress"
@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            tools:text="可用的" />
+            tools:text="Available" />
 
     </LinearLayout>
 

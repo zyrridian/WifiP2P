@@ -168,7 +168,7 @@ class FileSenderActivity : BaseActivity() {
 
     @SuppressLint("MissingPermission")
     private fun initView() {
-        supportActionBar?.title = "文件发送端"
+        supportActionBar?.title = "File Sender"
         btnDisconnect.setOnClickListener {
             disconnect()
         }
@@ -177,10 +177,10 @@ class FileSenderActivity : BaseActivity() {
         }
         btnDirectDiscover.setOnClickListener {
             if (!wifiP2pEnabled) {
-                showToast(message = "需要先打开Wifi")
+                showToast(message = "Wifi must be enabled")
                 return@setOnClickListener
             }
-            showLoadingDialog(message = "正在搜索附近设备")
+            showLoadingDialog(message = "Searching for nearby devices")
             showDeviceList(devices = emptyList())
             wifiP2pManager.discoverPeers(wifiP2pChannel, object : WifiP2pManager.ActionListener {
                 override fun onSuccess() {
@@ -276,8 +276,8 @@ class FileSenderActivity : BaseActivity() {
         val wifiP2pConfig = WifiP2pConfig()
         wifiP2pConfig.deviceAddress = wifiP2pDevice.deviceAddress
         wifiP2pConfig.wps.setup = WpsInfo.PBC
-        showLoadingDialog(message = "正在连接，deviceName: " + wifiP2pDevice.deviceName)
-        showToast(message = "正在连接，deviceName: " + wifiP2pDevice.deviceName)
+        showLoadingDialog(message = "Connecting, deviceName: " + wifiP2pDevice.deviceName)
+        showToast(message = "Connecting, deviceName: " + wifiP2pDevice.deviceName)
         wifiP2pManager.connect(wifiP2pChannel, wifiP2pConfig,
             object : WifiP2pManager.ActionListener {
                 override fun onSuccess() {
@@ -285,7 +285,7 @@ class FileSenderActivity : BaseActivity() {
                 }
 
                 override fun onFailure(reason: Int) {
-                    showToast(message = "连接失败 $reason")
+                    showToast(message = "Connection failed $reason")
                     dismissLoadingDialog()
                 }
             }

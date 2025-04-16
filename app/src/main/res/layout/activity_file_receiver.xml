@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="创建群组"
+            android:text="Create Group"
             tools:ignore="HardcodedText" />
 
         <Button
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="移除群组"
+            android:text="Remove Group"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>
@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="启动监听"
+        android:text="Start Listening"
         tools:ignore="HardcodedText" />
 
     <ImageView

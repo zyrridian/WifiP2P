@@ -13,7 +13,7 @@ import github.leavesczy.wifip2p.sender.FileSenderActivity
 /**
  * @Author: CZY
  * @Date: 2022/9/28 14:24
- * @Desc:
+ * @Desc: Main Activity for selecting file sender or receiver
  */
 class MainActivity : BaseActivity() {
 
@@ -33,9 +33,9 @@ class MainActivity : BaseActivity() {
 
     private val requestPermissionLaunch = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
-    ) { it ->
-        if (it.all { it.value }) {
-            showToast(message = "已获得全部权限")
+    ) { result ->
+        if (result.all { it.value }) {
+            showToast(message = "All permissions granted")
         } else {
             onPermissionDenied()
         }
@@ -44,9 +44,11 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         findViewById<View>(R.id.btnCheckPermission).setOnClickListener {
             requestPermissionLaunch.launch(requestedPermissions)
         }
+
         findViewById<View>(R.id.btnSender).setOnClickListener {
             if (allPermissionGranted()) {
                 startActivity(FileSenderActivity::class.java)
@@ -54,6 +56,7 @@ class MainActivity : BaseActivity() {
                 onPermissionDenied()
             }
         }
+
         findViewById<View>(R.id.btnReceiver).setOnClickListener {
             if (allPermissionGranted()) {
                 startActivity(FileReceiverActivity::class.java)
@@ -64,7 +67,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun onPermissionDenied() {
-        showToast(message = "缺少权限，请先授予权限")
+        showToast(message = "Missing permissions. Please grant required permissions first.")
     }
 
     private fun allPermissionGranted(): Boolean {
